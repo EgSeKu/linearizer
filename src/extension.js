@@ -148,8 +148,22 @@ function getWebviewContent() {
 }
 
 function hello() {
-    vscode.window.showInformationMessage('Hello!');
+  const { exec } = require("child_process");
+
+  exec("hostname", (error, stdout, stderr) => {
+      if (error) {
+        vscode.window.showInformationMessage(`error: ${error.message}`);
+          return;
+      }
+      if (stderr) {
+        vscode.window.showInformationMessage(`stderr: ${stderr}`);
+          return;
+      }
+      vscode.window.showInformationMessage(`stdout: ${stdout}`);
+  });
+  // vscode.window.showInformationMessage('Hello!');
 }
+
 
 module.exports = {
     activate,
