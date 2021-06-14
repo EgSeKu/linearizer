@@ -7,7 +7,19 @@ module.exports = {
 }
 
 function helpFunc() {
-    vscode.window.showInformationMessage('Fuck VS Code Api and its developers.');
+    const { exec } = require("child_process");
+
+  exec("Linearizer -h", (error, stdout, stderr) => {
+      if (error) {
+        vscode.window.showInformationMessage(`error: ${error.message}`);
+          return;
+      }
+      if (stderr) {
+        vscode.window.showInformationMessage(`${stderr}`);
+          return;
+      }
+      vscode.window.showInformationMessage(`${stdout}`);
+  });;
 };
 
 function hello() {
@@ -17,31 +29,31 @@ function hello() {
 function help() {
     const { exec } = require("child_process");
 
-    exec("hostname", (error, stdout, stderr) => {
+    exec("Linearizer -h", (error, stdout, stderr) => {
         if (error) {
             vscode.window.showInformationMessage(`error: ${error.message}`);
             return;
         }
         if (stderr) {
-            vscode.window.showInformationMessage(`stderr: ${stderr}`);
+            vscode.window.showInformationMessage(`${stderr}`);
             return;
         }
-        vscode.window.showInformationMessage(`stdout: ${stdout}`);
+        vscode.window.showInformationMessage(`${stdout}`);
     });
 }
 
 function linearize() {
     const { exec } = require("child_process");
 
-    exec("hostname", (error, stdout, stderr) => {
+    exec("Linearizer -l //repo //setting", (error, stdout, stderr) => {
         if (error) {
             vscode.window.showInformationMessage(`error: ${error.message}`);
             return;
         }
         if (stderr) {
-            vscode.window.showInformationMessage(`stderr: ${stderr}`);
+            vscode.window.showInformationMessage(`${stderr}`);
             return;
         }
-        vscode.window.showInformationMessage(`stdout: ${stdout}`);
+        vscode.window.showInformationMessage(`${stdout}`);
     });
 }
