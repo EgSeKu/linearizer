@@ -1,6 +1,6 @@
 const vscode = require('vscode');
-const {getWebviewContent} = require('./webviewContent')
-const {helpFunc, hello, help, linearize} = require('./functions')
+const { getWebviewContent } = require('./webviewContent')
+const { helpFunc, hello, help, linearize, linFunc, fixFunc } = require('./functions')
 
 /**
  * @param {vscode.ExtensionContext} context
@@ -36,6 +36,12 @@ function activate(context) {
           switch (message.command) {
             case 'help':
               helpFunc();
+              return;
+            case 'linearize':
+              linFunc(message.rep, message.start, message.branch);
+              return;
+            case 'fix':
+              fixFunc(message.rep, message.start, message.branch);
               return;
           }
         },

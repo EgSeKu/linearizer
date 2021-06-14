@@ -38,7 +38,7 @@ function getWebviewContent() {
             font-family: Roboto;
             font-size: 2vh;
             line-height: 5vh;
-            width: 48vh;
+            width: 40vw;
             margin-top: 3%;
             display: flex;
             align-items: center;
@@ -90,12 +90,15 @@ function getWebviewContent() {
         <div class="form">
             <form>
                 <input class="inp" type="text" placeholder="Repository" id="rep">
+                <input class="inp" type="text" placeholder="Branch" id="branch">
                 <input class="inp" type="text" placeholder="Start" id="start">
-                <input class="inp" type="text" placeholder="End" id="end">
             </form>
             <div class="buttons">
                 <button class="func" id="button_linearize">
                     Linearize
+                </button>
+                <button class="func" id="button_fix">
+                    Fix
                 </button>
                 <button class="func" id="button_help">
                     Help
@@ -105,12 +108,34 @@ function getWebviewContent() {
         <script>
           const vscode = acquireVsCodeApi();
           const buttonHelp = document.getElementById('button_help');
-          
+          const buttonLinearize = document.getElementById('button_linearize');
+          const buttonFix = document.getElementById('button_fix');
+
           buttonHelp.addEventListener('click', helpFunc);
+          buttonLinearize.addEventListener('click', linFunc);
+          buttonFix.addEventListener('click', fixFunc);
           
           function helpFunc() {
             vscode.postMessage({
               command: 'help'
+            }
+            )
+          };
+          function linFunc() {
+            vscode.postMessage({
+              command: 'linearize',
+              rep: document.getElementById('rep').value,
+              start: document.getElementById('start').value,
+              branch: document.getElementById('branch').value
+            }
+            )
+          };
+          function fixFunc() {
+            vscode.postMessage({
+              command: 'fix',
+              rep: document.getElementById('rep').value,
+              start: document.getElementById('start').value,
+              branch: document.getElementById('branch').value
             }
             )
           };
